@@ -1,0 +1,12 @@
+# The purpose of this docker file is to produce the same image
+# as celestia-node:0.6.1, but to also provide `jq` and `curl` to
+# query a celestia data availability layer and store the genesis.
+#
+# Its primary use is in integration tests
+
+FROM ghcr.io/celestiaorg/celestia-node:0.6.1
+
+RUN apt-get update && apt-get -y install jq curl
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["celestia"]

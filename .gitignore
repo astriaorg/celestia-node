@@ -8,7 +8,6 @@ build/
 *.memprof
 *.out
 *.coverprofile
-*.test
 *.orig
 */vendor
 vendor
