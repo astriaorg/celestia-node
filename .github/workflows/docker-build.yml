@@ -36,20 +36,8 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and Push amd64 Image
-        if: |
-          github.ref != 'refs/heads/main' &&
-          !startsWith(github.ref, 'refs/tags/v')
-        uses: docker/build-push-action@v3
-        with:
-          platforms: linux/amd64
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          file: docker/Dockerfile
       - name: Build and Push amd64+arm64 Images
-        if: |
-          github.ref == 'refs/heads/main' ||
-          startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/v')
         uses: docker/build-push-action@v3
         with:
           platforms: linux/arm64, linux/amd64
@@ -79,23 +67,11 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and Push amd64 Image
-        if: |
-          github.ref != 'refs/heads/main' &&
-          !startsWith(github.ref, 'refs/tags/v')
-        uses: docker/build-push-action@v3
-        with:
-          platforms: linux/amd64
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          file: docker/Dockerfile.test
       - name: Build and Push amd64+arm64 Images
-        if: |
-          github.ref == 'refs/heads/main' ||
-          startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/v')
         uses: docker/build-push-action@v3
         with:
           platforms: linux/arm64, linux/amd64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          file: docker/Dockerfile
+          file: docker/Dockerfile.test
