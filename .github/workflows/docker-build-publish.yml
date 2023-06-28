@@ -14,10 +14,10 @@ on:
   pull_request:
 
 jobs:
-  docker-security-build:
+  docker-security-build-dev-cluster-image:
     permissions:
       contents: write
       packages: write
     uses: celestiaorg/.github/.github/workflows/reusable_dockerfile_pipeline.yml@v0.2.0 # yamllint disable-line rule:line-length
     with:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev-cluster

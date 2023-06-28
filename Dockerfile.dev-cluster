@@ -1,0 +1,20 @@
+# The purpose of this docker file is to produce the same image
+# as celestia-node:v0.11.0-rc5, but to also provide `jq` and `curl` to
+# query a celestia data availability layer and store the genesis.
+#
+# Its primary use is in integration tests and the dev cluster.
+#
+# NOTE: Because this image is built from Celestia's image, any changes
+# in this fork will not be reflected in the image. To update the image
+# after a change to this codebase, you must refactor this Dockerfile
+# to use our fork's image. At the time of this comment, all changes
+# to this fork are only Dockerfile changes, so this is not an issue.
+
+FROM ghcr.io/celestiaorg/celestia-node:v0.11.0-rc5
+
+USER root
+RUN apk update && apk --no-cache add jq curl
+USER celestia
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["celestia"]
