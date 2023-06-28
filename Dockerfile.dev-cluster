@@ -12,7 +12,7 @@
 
 FROM ghcr.io/celestiaorg/celestia-node:v0.11.0-rc5
 
-RUN apt-get update && apt-get -y install jq curl
+RUN apk update && apk --no-cache add jq curl
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["celestia"]
